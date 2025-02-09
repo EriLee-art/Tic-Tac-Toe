@@ -3,11 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+    <!--    Using any of the tools you've worked with so far, create a game of Tic-Tac-Toe.
+
+                Create a Tic-Tac-Toe game grid using your HTML element of choice.
+                When a cell in the grid is clicked, an X or O should appear in that spot depending on whose 
+                    turn it is.
+                A heading should say whether it is X's or O's turn and change with each move made.
+                A button should be available to clear the grid and restart the game.
+                When a player has won, or the board is full and the game results in a draw, a Bootstrap 
+                    alert or similar Bootstrap component should appear across the screen announcing the winner.
+    -->
+
+    <!--Title-->
+    <div id="header" class="text-center fs-1 m-5">
+        Tic Tac Toe
+    </div>
+
+    <!--To be shown when the turns officially begin.-->
+    <div class="container text-center m-5">
+        <div class="row pt-2">
+            <div id="player1Turn">
+                <div class="col fs-2">Player 1's Turn</div>
+                <div class="col fs-2">Player 1 = X</div>
+            </div>
+            <div id="player2Turn">
+                <div class="col fs-2">Player 2's Turn</div>
+                <div class="col fs-2">Player 2 = O</div>
+            </div>
+            <div>
+                <div id="startUp" class="col fs-2">Click START to Play!</div>
+            </div>
+        </div>
+    </div>
+
+    <!--Tic Tac Toe grid-->
+    <div id="ticTacToe" class="container align-center bg-secondary">
+        <div class="column">
+            <span class="square" data-index="1">
+                
+            </span>
+            <span class="square" data-index="2">
+                
+            </span>
+            <span class="square" data-index="3">
+                
+            </span>
+        </div>
+        <div class="column">
+            <span class="square" data-index="4">
+                
+            </span>
+            <span class="square" data-index="5">
+                
+            </span>
+            <span class="square" data-index="6">
+                
+            </span>
+        </div>
+        <div class="column">
+            <span class="square" data-index="7">
+                
+            </span>
+            <span class="square" data-index="8">
+                
+            </span>
+            <span class="square" data-index="9">
+                
+            </span>
+        </div>
+    </div>
     
+
+
 
 
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
