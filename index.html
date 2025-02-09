@@ -28,16 +28,32 @@
     <!--To be shown when the turns officially begin.-->
     <div class="container text-center m-5">
         <div class="row pt-2">
-            <div id="player1Turn">
-                <div class="col fs-2">Player 1's Turn</div>
-                <div class="col fs-2">Player 1 = X</div>
+
+            <!--Alerts to be shown-->
+            <div id="player1Turn" class="alert" role="alert">
+                <div class="fs-2">Player 1's Turn</div>
+                <div class="fs-2">Player 1 = X</div>
             </div>
-            <div id="player2Turn">
-                <div class="col fs-2">Player 2's Turn</div>
-                <div class="col fs-2">Player 2 = O</div>
+            <div id="player2Turn" class="alert" role="alert">
+                <div class="fs-2">Player 2's Turn</div>
+                <div class="fs-2">Player 2 = O</div>
             </div>
-            <div>
-                <div id="startUp" class="col fs-2">Click START to Play!</div>
+            <div id="player1Wins" class="alert" role="alert">
+                <div class="fs-2">Player 1 Wins!!</div>
+                <div class="fs-2">Play Again?</div>
+            </div>
+            <div id="player2Wins" class="alert" role="alert">
+                <div class="fs-2">Player 2 Wins!!</div>
+                <div class="fs-2">Play Again?</div>
+            </div>
+            <div id="draw" class="alert" role="alert">
+                <div class="fs-2">DRAW!!</div>
+                <div class="fs-2">Play Again?</div>
+            </div>
+
+            <!--Alert at startup-->
+            <div id="startUp" class="alert" role="alert">
+                <div class="col fs-2">Click START to Play!</div>
             </div>
         </div>
     </div>
@@ -45,42 +61,50 @@
     <!--Tic Tac Toe grid-->
     <div id="ticTacToe" class="container align-center bg-secondary">
         <div class="column">
-            <span class="square" data-index="1">
+            <span id="square1" class="square text-center align-middle fs-1">
                 
             </span>
-            <span class="square" data-index="2">
+            <span id="square2" class="square text-center align-middle fs-1">
                 
             </span>
-            <span class="square" data-index="3">
-                
-            </span>
-        </div>
-        <div class="column">
-            <span class="square" data-index="4">
-                
-            </span>
-            <span class="square" data-index="5">
-                
-            </span>
-            <span class="square" data-index="6">
+            <span id="square3" class="square text-center align-middle fs-1">
                 
             </span>
         </div>
         <div class="column">
-            <span class="square" data-index="7">
+            <span id="square4" class="square text-center align-middle fs-1">
                 
             </span>
-            <span class="square" data-index="8">
+            <span id="square5" class="square text-center align-middle fs-1">
                 
             </span>
-            <span class="square" data-index="9">
+            <span id="square6" class="square text-center align-middle fs-1">
+                
+            </span>
+        </div>
+        <div class="column">
+            <span id="square7" class="square text-center align-middle fs-1">
+                
+            </span>
+            <span id="square8" class="square text-center align-middle fs-1">
+                
+            </span>
+            <span id="square9" class="square text-center align-middle fs-1">
                 
             </span>
         </div>
     </div>
     
+    <!--Buttons to Start and Reset the game.-->
 
-
+    <div class="container align-center col-3 gap-3 mx-auto pt-4">
+        <span class="column">
+            <button id="buttonStart" class="btn btn-outline-info btn-lg">START</button>
+        </span>
+        <span class="column">
+            <button id="buttonRestart" class="btn btn-outline-dark btn-lg">RESET</button>
+        </div>
+    </div>
 
 
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>

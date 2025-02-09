@@ -12,74 +12,180 @@
  * 
  */
 
-// Allows for all the square spans to be modified
-const squares = document.querySelectorAll(".square");
+// Selects all square classes to be called upon
+const squares = document.querySelectorAll(`.square`);
 
 // Creates two players that will be alternated per turn
-let isPlayerOneTurn = true;
-let isPlayerTwoTurn = false;
+const player1 = `X`;
+const player2 = `O`;
 
-console.log(`It is Player One's Turn`);
+// Sets the current player
+let currentPlayer = ``;
 
-// Hides the Player turns for now
+// Sets whether a winner can be declared
+let winner = false;
+
+// Hides the Player turns/wins/draw alerts for now
     $(`#player1Turn`).hide();
     $(`#player2Turn`).hide();
+    $(`#player1Wins`).hide();
+    $(`#player2Wins`).hide();
+    $(`#draw`).hide();
+
+// Every square is labeled out to be compared to winning patterns
+let square1 = $(`#square1`);
+let square2 = $(`#square2`);
+let square3 = $(`#square3`);
+let square4 = $(`#square4`);
+let square5 = $(`#square5`);
+let square6 = $(`#square6`);
+let square7 = $(`#square7`);
+let square8 = $(`#square8`);
+let square9 = $(`#square9`);
 
 // Holds all the winning patterns
 const winningPatternPatterns = [
-    [1,2,3],
-    [4,5,6],
-    [7,8,9],
-    [1,4,7],
-    [2,5,8],
-    [3,6,9],
-    [1,5,9],
-    [3,5,7]
+    [square1,square2,square3],
+    [square4,square5,square6],
+    [square7,square8,square9],
+    [square1,square4,square7],
+    [square2,square5,square8],
+    [square3,square6,square9],
+    [square1,square5,square9],
+    [square3,square5,square7]
 ]
 
-// Stores the Players' squares
-const player1Squares = [];
-const player2Squares = [];
+// Turns taken
+let gameTurns = 0;
 
+// Used when the game ends
+let gameEnd = () => {
+    $(`.square`).off('click');
+}
 
-// Function that compares the the numbers between the player squares and the winning squares
-// const compareSquares = (playerSquares, winningSquares) => {
-//     for (let i = 0; i < playerSquares.length; i++) {
-//         if (playerSquares)}
-// };
-
-// Game starts here, loops through after a square is clicked
-squares.forEach((square) => {
+// Checks if there is a winner by comparing currentPlayer to winningPatternPatterns array
+const checkWinner = (currentPlayer, a, b, c) => {
     
-    // Event listener for every time a square is clicked
-    square.addEventListener("click", (square) => {
+    // If a winner is determined, this will run
+    if (a.text() === currentPlayer && b.text() === currentPlayer && c.text() === currentPlayer) {
+        winner = true;
 
-        // Creates an index to hold the current index number
-        const index = square.target.dataset.index;
-        console.log(`Square ${index} clicked`);
+        // highlights winning squares
+        a.addClass(`text-info bg-dark`);
+        b.addClass(`text-info bg-dark`);
+        c.addClass(`text-info bg-dark`);
 
-        // If statement that switches between Player 1 and 2's turns per click
-        if(isPlayerOneTurn) {
+        if(currentPlayer === player1) {
+            $(`#player1Turn`).hide();
+            $(`#player2Turn`).hide();
+            $(`#player1Wins`).show();
+            currentPlayer = `Player 1`;
+        } else {
+            $(`#player1Turn`).hide();
+            $(`#player2Turn`).hide();
+            $(`#player2Wins`).show();
+            currentPlayer = `Player 2`;
+        }
 
-            // If statement that prevents the player from overriding another player's choice
-            if((square.target.textContent != `o`) && (square.target.textContent != `x`)){
-                $(square.target).text(`o`);
-                player1Squares.push(index);
-                isPlayerOneTurn = false;
-                isPlayerTwoTurn = true;
-                console.log(player1Squares);
-                console.log(`It is Player Two's Turn`);
-            }
-        } else if((square.target.textContent != `o`) && (square.target.textContent != `x`)) {
-            if(square.target.textContent != `x`){
-                $(square.target).text(`x`);
-                player2Squares.push(index);
-                isPlayerTwoTurn = false;
-                isPlayerOneTurn = true;
-                console.log(player2Squares);
-                console.log(`It is Player One's Turn`);
-            } 
-        };
-    });    
-});
+        console.log(`${currentPlayer} Wins!!`);
+        gameEnd();
+    }
+}
 
+// When called, compares the squares of the currentPlayer and the winning patterns
+const compareSquares = () => {
+    checkWinner(currentPlayer, ...winningPatternPatterns[0])
+    checkWinner(currentPlayer, ...winningPatternPatterns[1])
+    checkWinner(currentPlayer, ...winningPatternPatterns[2])
+    checkWinner(currentPlayer, ...winningPatternPatterns[3])
+    checkWinner(currentPlayer, ...winningPatternPatterns[4])
+    checkWinner(currentPlayer, ...winningPatternPatterns[5])
+    checkWinner(currentPlayer, ...winningPatternPatterns[6])
+    checkWinner(currentPlayer, ...winningPatternPatterns[7])
+
+    // This ends the game if it's a draw
+    if(gameTurns === 9 && winner === false) {
+        gameEnd();
+        $(`#player1Turn`).hide();
+        $(`#player2Turn`).hide();
+        $(`#draw`).show();
+    }
+}
+
+// Code block containing the underlying logic
+const gameStart = () => {
+
+    $(`#startUp`).hide();
+    $(`#player1Turn`).show();
+    currentPlayer = player1;
+    console.log(`It's player 1's turn!`)
+    
+    // For loop that iterates through each square per click
+    squares.forEach(() => {
+    
+        // Event listener for every time a square is clicked
+        $(`.square`).on(`click`, function(){
+
+            // If statement that switches between Player 1 and 2's turns per click
+            if(currentPlayer === player1) {
+
+                // If statement that prevents the player from overriding another player's choice
+                if((this.textContent !== `O`) && (this.textContent !== `X`)){
+                    $(this).text(currentPlayer);
+
+                    gameTurns++
+                    $(`#player1Turn`).hide();
+                    $(`#player2Turn`).show();
+                    
+                    // When game turns are over 4, starts checking winners
+                    if(gameTurns > 4) {
+                        compareSquares();
+                    };
+
+                    currentPlayer = player2;
+                    console.log(gameTurns);
+                    console.log(`It is Player Two's Turn`);
+                }
+            } else {
+                if((this.textContent !== `O`) && (this.textContent !== `X`)){
+                    $(this).text(currentPlayer);
+                    
+                    gameTurns++
+                    $(`#player2Turn`).hide();
+                    $(`#player1Turn`).show();
+                    
+                    if(gameTurns > 4) {
+                        compareSquares();
+                    };
+
+                    currentPlayer = player1;
+                    console.log(gameTurns);
+                    console.log(`It is Player One's Turn`);
+                };
+            };
+        }); 
+    });
+};
+
+// Resets the entire game, no page reloading
+const gameReset = () => {
+    currentPlayer = ``;
+    gameTurns = 0;
+    winner = false;
+
+    $(`#player1Turn`).hide();
+    $(`#player2Turn`).hide();
+    $(`#player1Wins`).hide();
+    $(`#player2Wins`).hide();
+    $(`#draw`).hide();
+
+    $(`.square`).text(``);
+    $(`.square`).removeClass(`text-info bg-dark`);
+
+    if(currentPlayer === ``){
+        gameStart();
+    }
+};
+
+document.getElementById(`buttonStart`).addEventListener(`click`, () => gameStart());
+document.getElementById(`buttonRestart`).addEventListener(`click`, () => gameReset());
